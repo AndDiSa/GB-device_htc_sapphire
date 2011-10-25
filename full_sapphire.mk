@@ -26,6 +26,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full.mk)
 
 #Include JA
 PRODUCT_LOCALES += ja_JP
+PRODUCT_LOCALES += cs_CZ
 
 #Additional Translations
 PRODUCT_LOCALES += es_US ko_KR pl_PL pt_PT pt_BR ru_RU zh_TW zh_CN
