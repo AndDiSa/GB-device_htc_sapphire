@@ -15,17 +15,17 @@
 LOCAL_PATH := $(call my-dir)
 
 file := $(TARGET_OUT_KEYLAYOUT)/sapphire-keypad.kl
-ALL_PREBUILT += $(file)
+PRODUCT_COPY_FILE += $(file)
 $(file) : $(LOCAL_PATH)/sapphire-keypad.kl | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_ROOT_OUT)/init.trout.rc
-ALL_PREBUILT += $(file)
+PRODUCT_COPY_FILE += $(file)
 $(file) : $(LOCAL_PATH)/init.trout.rc | $(ACP)
 	$(transform-prebuilt-to-target)
 
 file := $(TARGET_ROOT_OUT)/init.sapphire.rc
-ALL_PREBUILT += $(file)
+PRODUCT_COPY_FILE += $(file)
 $(file) : $(LOCAL_PATH)/init.sapphire.rc | $(ACP)
 	$(transform-prebuilt-to-target)
 

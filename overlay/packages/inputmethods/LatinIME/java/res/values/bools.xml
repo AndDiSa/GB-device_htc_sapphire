@@ -19,7 +19,11 @@
 -->
 <resources>
     <!-- Whether or not auto-correction should be enabled by default -->
+<!--
     <bool name="enable_autocorrect">true</bool>
+-->
     <!-- Assume multi-touch is distinct even if hardware isn't -->
+<!--
     <bool name="config_force_distinct_multitouch">true</bool>
+-->
 </resources>
