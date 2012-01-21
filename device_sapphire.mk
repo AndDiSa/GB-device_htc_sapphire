@@ -27,6 +27,7 @@ PRODUCT_PACKAGES += \
     libRS \
     librs_jni \
     libOmxCore \
+    libmm-omxcore \
     su \
     vold.fstab \
     e2fsck \
