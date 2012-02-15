@@ -32,7 +32,9 @@ PRODUCT_PACKAGES += \
     vold.fstab \
     e2fsck \
     com.android.future.usb.accessory \
-    android.software.live_wallpaper.xml
+    android.software.live_wallpaper.xml \
+    copybit.msm7k \
+    lights.msm7k
 
 #APKs
 PRODUCT_PACKAGES += \

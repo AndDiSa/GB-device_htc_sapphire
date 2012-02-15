@@ -45,4 +45,4 @@ TARGET_SQUASH_FONTS:=true
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := full_sapphire
 PRODUCT_DEVICE := sapphire
-PRODUCT_MODEL := Gingerbread on Sapphire
+PRODUCT_MODEL := ADS-ICS on Sapphire
