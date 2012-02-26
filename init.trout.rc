@@ -30,16 +30,78 @@ on boot
     setkey 0xc0 0x8b 0x707
     setkey 0xc0 0x6b 0x20c
 
+# Setup bluetooth
+    chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /proc/bluetooth/sleep/proto
+
+    chown system system /sys/module/sco/parameters/disable_esco
+    chmod 0660 /sys/module/bluetooth_power/parameters/power
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /proc/bluetooth/sleep/proto
+    chown bluetooth bluetooth /dev/ttyHS0
+    chmod 0660 /dev/ttyHS0
+    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
+    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
+
+
+#create WIFI filesystem structure
+    mkdir /data/misc 01771 system misc
+    mkdir /data/misc/wifi 0770 system wifi
+    mkdir /data/misc/wifi/sockets
+    chown system wifi /data/misc/wifi/sockets
+    chmod 770 /data/misc/wifi/sockets
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    mkdir /data/system 0775 system system
+
+# Permission for ril
+   chown radio system /dev/pm_monitor
+   chmod 0770 /dev/pm_monitor
+   chown radio system /dev/oncrpc/30000016:9c95bb4d
+   chown radio system /dev/oncrpc/30000000:dd7fe79a
+   chown radio system /dev/oncrpc/30000019:821a1945
+   chown radio system /dev/oncrpc/3000003c:beb78360
+   chown radio system /dev/oncrpc/30000003:d03123cc
+   chown radio system /dev/oncrpc/3000000e:00060000
+   chown radio system /dev/oncrpc/30000012:00010000
+   mkdir /data/local
+   chmod 0777 /data/local
+   chown radio shell /data/local
+   mkdir /data/local/tmp
+   chmod 0777 /data/local/tmp
+   chown radio shell /data/local/tmp
+
+# For qmuxd socket
+    mkdir /data/radio 0770 radio radio
+    chown radio radio 0770 /data/radio
+    chown radio system /dev/pm_monitor
+    
+# Sensors
+    chmod 0777 /dev/akm8976_aot
+    chmod 0777 /dev/akm8976_dev
+    
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/green/grpfreq
+    chown system system /sys/class/leds/green/grppwm
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/red/grpfreq
+    chown system system /sys/class/leds/red/grppwm
+    chown system system /sys/class/leds/amber/blink
+    chown system system /sys/class/leds/amber/brightness
+    chown system system /sys/class/leds/amber/grpfreq
+    chown system system /sys/class/leds/amber/grppwm
+
+
 on fs
     # setup sdcard and mount
     export EXTERNAL_STORAGE /mnt/sdcard
     mkdir /mnt/sdcard 0000 system system
     # for backwards compatibility
     symlink /mnt/sdcard /sdcard
-    # bluetooth power up/down interface
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chmod 0660                /sys/class/rfkill/rfkill0/state
 
     # cpufreq configurations
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
@@ -50,11 +112,15 @@ on fs
     # enable insecure AGPS
     setprop ro.ril.def.agps.mode 2
 
-on post-fs-data 
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
+on post-fs
+    # Mount compressed filesystems
+    mount squashfs loop@/system/lib/modules/modules.sqf /system/lib/modules ro
+
+service qmuxd /system/bin/qmuxd
+    class main
+
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd
 
 # compass/accelerometer daemon
 service akmd /system/bin/akmd

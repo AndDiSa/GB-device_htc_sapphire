@@ -33,6 +33,9 @@ PRODUCT_PACKAGES += \
     e2fsck \
     com.android.future.usb.accessory \
     android.software.live_wallpaper.xml \
+    audio.primary.msm7k \
+    audio_policy.msm7k \
+    gralloc.msm7k \
     copybit.msm7k \
     lights.msm7k
 
