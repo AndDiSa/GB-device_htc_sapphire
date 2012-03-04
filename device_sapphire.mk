@@ -22,6 +22,8 @@ PRODUCT_PACKAGES := \
 
 # libs and tools
 PRODUCT_PACKAGES += \
+    wlan_loader \
+    tiwlan.ini \
     libGLES_android \
     rsg-generator \
     libRS \
@@ -33,15 +35,12 @@ PRODUCT_PACKAGES += \
     e2fsck \
     com.android.future.usb.accessory \
     android.software.live_wallpaper.xml \
-    audio.primary.msm7k \
-    audio_policy.msm7k \
-    gralloc.msm7k \
     copybit.msm7k \
+    gralloc.msm7k \
     lights.msm7k
 
 #APKs
 PRODUCT_PACKAGES += \
-   EzGbExtras \
    Superuser \
    LiveWallpapersPicker \
    FileManager
